@@ -27,7 +27,7 @@ export default function RootLayout({
       </StickyBanner>
         <NavbarDemo />
         <div >{children}</div>
-        <Footer className="bg-gray-100 text-gray-700 dark:bg-gray-900 dark:text-gray-300" />
+        <Footer />
       </body>
     </html>
   );

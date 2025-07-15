@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion,easeInOut } from "framer-motion";
 import { Check, X } from "lucide-react";
 
 interface Comment {
@@ -14,7 +14,10 @@ interface Comment {
 
 const containerVariants = {
   hidden: { height: "auto" },
-  visible: { height: "auto", transition: { duration: 0.5, ease: "easeInOut" } },
+  visible: {
+    height: "auto",
+    transition: { duration: 0.5, ease: easeInOut },
+  },
 };
 
 const commentVariants = {
@@ -23,7 +26,11 @@ const commentVariants = {
   exit: { opacity: 0, y: -20, transition: { duration: 0.3 } },
 };
 
-export default function CommentReplyCard({ initialComments }: { initialComments: Comment[] }) {
+export default function CommentReplyCard({
+  initialComments,
+}: {
+  initialComments: Comment[];
+}) {
   const [comments, setComments] = useState<Comment[]>([...initialComments]);
   const [newComment, setNewComment] = useState<string>("");
   const [isAnimating, setIsAnimating] = useState(false);
@@ -125,8 +132,12 @@ export default function CommentReplyCard({ initialComments }: { initialComments:
                       </svg>
                     </div>
                     <div>
-                      <span className="font-semibold text-white">{comment.user}</span>
-                      <span className="ml-2 text-sm text-gray-400">{comment.time}</span>
+                      <span className="font-semibold text-white">
+                        {comment.user}
+                      </span>
+                      <span className="ml-2 text-sm text-gray-400">
+                        {comment.time}
+                      </span>
                     </div>
                   </div>
                   <div className="mt-1 pl-11 text-white">

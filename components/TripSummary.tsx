@@ -1,34 +1,33 @@
-import { cn } from "@/lib/utils";
+import Image from "next/image";
+
 import React from "react";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
 import {
   IconArrowWaveRightUp,
-  IconBoxAlignRightFilled,
   IconBoxAlignTopLeft,
   IconClipboardCopy,
   IconFileBroken,
   IconSignature,
-  IconTableColumn,
 } from "@tabler/icons-react";
 
 export function TripSummary() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-12">
-    <h2 className="text-4xl font-bold text-center text-indigo-700 mb-10">
-      Trip Highlights
-    </h2>
-    <BentoGrid className="max-w-4xl mx-auto">
-      {items.map((item, i) => (
-        <BentoGridItem
-          key={i}
-          title={item.title}
-          description={item.description}
-          header={item.header}
-          icon={item.icon}
-          className={i === 3 || i === 6 ? "md:col-span-2" : ""}
-        />
-      ))}
-    </BentoGrid>
+      <h2 className="text-4xl font-bold text-center text-indigo-700 mb-10">
+        Trip Highlights
+      </h2>
+      <BentoGrid className="max-w-4xl mx-auto">
+        {items.map((item, i) => (
+          <BentoGridItem
+            key={i}
+            title={item.title}
+            description={item.description}
+            header={item.header}
+            icon={item.icon}
+            className={i === 3 || i === 6 ? "md:col-span-2" : ""}
+          />
+        ))}
+      </BentoGrid>
     </div>
   );
 }
@@ -39,7 +38,7 @@ const items = [
     description:
       "Experience the chill and thrill of Manali’s snowy peaks and adventure sports like skiing and ziplining.",
     header: (
-      <img
+      <Image
         src="/images/day5.jpg"
         alt="Shimla"
         className="w-full h-40 object-cover rounded-lg"
@@ -52,7 +51,7 @@ const items = [
     description:
       "Walk through Mall Road, visit Christ Church, and take in the old-world beauty of Shimla.",
     header: (
-      <img
+      <Image
         src="/images/day3.1.jpg"
         alt="Shimla"
         className="w-full h-40 object-cover rounded-lg"
@@ -66,7 +65,7 @@ const items = [
     description:
       "Enjoy luxurious stays in top-rated hotels with stunning views and modern amenities.",
     header: (
-      <img
+      <Image
         src="/images/hotel.jpg"
         alt="Hotel"
         className="w-full h-40 object-cover rounded-lg"
@@ -81,7 +80,7 @@ const items = [
     description:
       "Dance under the stars and warm up by the bonfire — the most awaited party night of the trip!",
     header: (
-      <img
+      <Image
         src="/images/dj.jpg"
         alt="Shimla"
         className="w-full h-40 object-cover rounded-lg"
@@ -96,7 +95,7 @@ const items = [
     description:
       "Train + Bus + Hotel + Meals + Sightseeing — everything is arranged for a smooth and fun experience.",
     header: (
-      <img
+      <Image
         src="/images/day1.jpg"
         alt="Shimla"
         className="w-full h-40 object-cover rounded-lg"

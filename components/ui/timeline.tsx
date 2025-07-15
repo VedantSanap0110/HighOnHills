@@ -1,10 +1,5 @@
 "use client";
-import {
-  useMotionValueEvent,
-  useScroll,
-  useTransform,
-  motion,
-} from "motion/react";
+import { useScroll, useTransform, motion } from "motion/react";
 import React, { useEffect, useRef, useState } from "react";
 import GibberishText from "../animata/text/gibberish-text";
 
@@ -39,7 +34,10 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
       ref={containerRef}
     >
       <div className="max-w-7xl mx-auto py-20 px-4 md:px-8 lg:px-10 text-center">
-        <GibberishText className="text-6xl font-black" text="Himachal Pradesh" />
+        <GibberishText
+          className="text-6xl font-black"
+          text="Himachal Pradesh"
+        />
         <p className="text-neutral-700 dark:text-neutral-300 text-sm md:text-base max-w-xl mx-auto">
           Join us on an unforgettable trip to Himachal Pradesh, with experienced
           guides and a well-planned itinerary.

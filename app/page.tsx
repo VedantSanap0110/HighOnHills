@@ -1,8 +1,7 @@
 import { Hero } from "@/components/Hero";
 
-import SeatCounter from "@/components/SeatCounter";
 import { Itenary } from "@/components/TripItenary";
-import Pricing from "@/components/animata/section/pricing";
+
 import FAQAccordion from "@/components/FAQAccordian";
 import { TripSummary } from "@/components/TripSummary";
 import Contact from "@/components/Contact";
