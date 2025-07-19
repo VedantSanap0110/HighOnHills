@@ -1,9 +1,10 @@
 "use client";
 import { motion } from "motion/react";
-import React from "react";
+import React, { useState } from "react";
 import { ImagesSlider } from "@/components/ui/images-slider";
-
+import Modal from "./animata/overlay/modal";
 export function Hero() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const images = [
     "/images/hero1.jpg",
     "/images/hero2.jpg",
@@ -30,10 +31,14 @@ export function Hero() {
         <motion.p className="font-bold text-xl md:text-6xl text-center bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400 py-4">
           VESIT BE TRIP to HIMACHAL PRADESH<br /> for the BATCH OF 2026
         </motion.p>
-        <button className="px-4 py-2 backdrop-blur-sm border bg-emerald-300/10 border-emerald-500/20 text-white mx-auto text-center rounded-full relative mt-4">
-          <span>Book your Seat now →</span>
-          <div className="absolute inset-x-0  h-px -bottom-px bg-gradient-to-r w-3/4 mx-auto from-transparent via-emerald-500 to-transparent" />
-        </button>
+        <button
+        onClick={() => setIsModalOpen(true)}
+        className="mt-8 rounded bg-white px-6 py-3 text-lg font-semibold text-indigo-800 transition hover:opacity-90"
+      >
+        Book your Seat now →
+      </button>
+
+      <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen} />
       </motion.div>
     </ImagesSlider>
   );
