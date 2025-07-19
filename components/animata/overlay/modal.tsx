@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { CircleAlert, X, Calendar, User, Phone, Mail, CreditCard, GraduationCap, Building } from "lucide-react";
 import { useState } from "react";
 
-const cn = (...classes) => classes.filter(Boolean).join(' ');
+const cn = (...classes: (string | undefined | false)[]) => classes.filter(Boolean).join(' ');
 
 type ModalProps = {
   isOpen: boolean;
@@ -11,27 +11,93 @@ type ModalProps = {
   modalSize?: "sm" | "lg";
 };
 
+// Add index signature to formData type
+interface FormData {
+  name: string;
+  class: string;
+  department: string;
+  phone: string;
+  email: string;
+  amount: string;
+  transactionID: string;
+  [key: string]: string; // index signature for dynamic access
+}
+
+// Notification component
+function Notification({ message, onClose, success }: { message: string; onClose: () => void; success: boolean }) {
+  return (
+    <div className={cn(
+      "fixed inset-0 z-[10000] flex items-center justify-center bg-black/60",
+      success ? "" : ""
+    )}>
+      <div className={cn(
+        "rounded-xl p-8 shadow-lg text-center",
+        success ? "bg-green-600 text-white" : "bg-red-600 text-white"
+      )}>
+        <p className="mb-4 text-lg font-semibold">{message}</p>
+        <button
+          onClick={onClose}
+          className="mt-2 px-4 py-2 rounded bg-white text-black font-medium hover:bg-gray-200"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function Modal({ isOpen, setIsOpen, modalSize = "lg" }: ModalProps) {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: "",
     class: "",
     department: "",
     phone: "",
     email: "",
-    paymentAmount: "",
-    date: "",
+    amount: "",
+    transactionID: "",
   });
-
   const [focusedField, setFocusedField] = useState("");
+  const [notification, setNotification] = useState<{ message: string; success: boolean } | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Submitted form:", formData);
-    setIsOpen(false);
+    setIsSubmitting(true);
+    // Generate date and time at submit
+    const now = new Date();
+    const date = now.toLocaleDateString("en-GB"); // DD/MM/YYYY
+    const time = now.toLocaleTimeString("en-GB"); // HH:MM:SS
+    const payload = { ...formData, date, time };
+    try {
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      if (response.ok) {
+        setNotification({ message: "Registered successfully!", success: true });
+        setFormData({
+          name: "",
+          class: "",
+          department: "",
+          phone: "",
+          email: "",
+          amount: "",
+          transactionID: "",
+        });
+      } else {
+        setNotification({ message: "Registration failed, please contact xyz: 9324643221", success: false });
+      }
+    } catch (error) {
+      setNotification({ message: "Registration failed, please contact xyz: 9324643221", success: false });
+    } finally {
+      setIsSubmitting(false);
+      setIsOpen(false);
+    }
   };
 
   const inputFields = [
@@ -40,8 +106,8 @@ export default function Modal({ isOpen, setIsOpen, modalSize = "lg" }: ModalProp
     { name: "department", placeholder: "Department", type: "text", icon: Building },
     { name: "phone", placeholder: "Phone Number", type: "tel", icon: Phone },
     { name: "email", placeholder: "Email ID", type: "email", icon: Mail },
-    { name: "paymentAmount", placeholder: "Payment Amount (₹)", type: "number", icon: CreditCard },
-    { name: "date", placeholder: "", type: "date", icon: Calendar },
+    { name: "amount", placeholder: "Payment Amount (₹)", type: "number", icon: CreditCard },
+    { name: "transactionID", placeholder: "Transaction ID", type: "text", icon: CreditCard },
   ];
 
   return (
@@ -75,9 +141,7 @@ export default function Modal({ isOpen, setIsOpen, modalSize = "lg" }: ModalProp
             onClick={(e) => e.stopPropagation()}
             className={cn(
               "relative w-full max-w-md cursor-default overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-8 shadow-2xl border border-slate-700/50",
-              {
-                "max-w-sm p-6": modalSize === "sm",
-              },
+              modalSize === "sm" ? "max-w-sm p-6" : undefined
             )}
           >
             {/* Close Button */}
@@ -205,6 +269,13 @@ export default function Modal({ isOpen, setIsOpen, modalSize = "lg" }: ModalProp
             <div className="absolute bottom-0 right-0 w-24 h-24 bg-gradient-to-tl from-purple-500/10 to-transparent rounded-full blur-xl" />
           </motion.div>
         </motion.div>
+      )}
+      {notification && (
+        <Notification
+          message={notification.message}
+          success={notification.success}
+          onClose={() => setNotification(null)}
+        />
       )}
     </AnimatePresence>
   );
