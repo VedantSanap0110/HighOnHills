@@ -1,9 +1,19 @@
 "use client";
 import { AnimatePresence, motion } from "framer-motion";
-import { CircleAlert, X, Calendar, User, Phone, Mail, CreditCard, GraduationCap, Building } from "lucide-react";
+import {
+  CircleAlert,
+  X,
+  Calendar,
+  User,
+  Phone,
+  Mail,
+  CreditCard,
+  GraduationCap,
+  Building,
+} from "lucide-react";
 import { useState } from "react";
 
-const cn = (...classes) => classes.filter(Boolean).join(' ');
+const cn = (...classes: string[]) => classes.filter(Boolean).join(" ");
 
 type ModalProps = {
   isOpen: boolean;
@@ -11,7 +21,11 @@ type ModalProps = {
   modalSize?: "sm" | "lg";
 };
 
-export default function Modal({ isOpen, setIsOpen, modalSize = "lg" }: ModalProps) {
+export default function Modal({
+  isOpen,
+  setIsOpen,
+  modalSize = "lg",
+}: ModalProps) {
   const [formData, setFormData] = useState({
     name: "",
     class: "",
@@ -36,11 +50,26 @@ export default function Modal({ isOpen, setIsOpen, modalSize = "lg" }: ModalProp
 
   const inputFields = [
     { name: "name", placeholder: "Full Name", type: "text", icon: User },
-    { name: "class", placeholder: "Class (e.g., TE IT-A)", type: "text", icon: GraduationCap },
-    { name: "department", placeholder: "Department", type: "text", icon: Building },
+    {
+      name: "class",
+      placeholder: "Class (e.g., TE IT-A)",
+      type: "text",
+      icon: GraduationCap,
+    },
+    {
+      name: "department",
+      placeholder: "Department",
+      type: "text",
+      icon: Building,
+    },
     { name: "phone", placeholder: "Phone Number", type: "tel", icon: Phone },
     { name: "email", placeholder: "Email ID", type: "email", icon: Mail },
-    { name: "paymentAmount", placeholder: "Payment Amount (₹)", type: "number", icon: CreditCard },
+    {
+      name: "paymentAmount",
+      placeholder: "Payment Amount (₹)",
+      type: "number",
+      icon: CreditCard,
+    },
     { name: "date", placeholder: "", type: "date", icon: Calendar },
   ];
 
@@ -66,18 +95,16 @@ export default function Modal({ isOpen, setIsOpen, modalSize = "lg" }: ModalProp
                 damping: 30,
               },
             }}
-            exit={{ 
-              scale: 0.8, 
-              opacity: 0, 
+            exit={{
+              scale: 0.8,
+              opacity: 0,
               y: 50,
-              transition: { duration: 0.2 }
+              transition: { duration: 0.2 },
             }}
             onClick={(e) => e.stopPropagation()}
             className={cn(
               "relative w-full max-w-md cursor-default overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-8 shadow-2xl border border-slate-700/50",
-              {
-                "max-w-sm p-6": modalSize === "sm",
-              },
+              modalSize === "sm" ? "max-w-sm p-6" : ""
             )}
           >
             {/* Close Button */}
@@ -96,32 +123,37 @@ export default function Modal({ isOpen, setIsOpen, modalSize = "lg" }: ModalProp
 
             <div className="relative flex flex-col gap-6">
               {/* Header */}
-              <motion.div 
+              <motion.div
                 initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.1 }}
                 className="flex flex-col items-center text-center mb-2"
               >
                 <motion.div
-                  animate={{ 
+                  animate={{
                     rotate: [0, 5, -5, 0],
-                    scale: [1, 1.05, 1]
+                    scale: [1, 1.05, 1],
                   }}
-                  transition={{ 
+                  transition={{
                     duration: 3,
                     repeat: Infinity,
-                    repeatType: "reverse"
+                    repeatType: "reverse",
                   }}
                   className="mb-4 p-4 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 shadow-lg"
                 >
                   <CircleAlert className="text-white" size={32} />
                 </motion.div>
-                <h3 className={cn("font-bold text-white mb-2 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent", 
-                  modalSize === "sm" ? "text-xl" : "text-2xl"
-                )}>
+                <h3
+                  className={cn(
+                    "font-bold text-white mb-2 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent",
+                    modalSize === "sm" ? "text-xl" : "text-2xl"
+                  )}
+                >
                   Trip Registration
                 </h3>
-                <p className="text-slate-400 text-sm">Fill in your details to join the adventure</p>
+                <p className="text-slate-400 text-sm">
+                  Fill in your details to join the adventure
+                </p>
               </motion.div>
 
               {/* Form Fields */}
@@ -129,8 +161,9 @@ export default function Modal({ isOpen, setIsOpen, modalSize = "lg" }: ModalProp
                 {inputFields.map((field, index) => {
                   const Icon = field.icon;
                   const isFocused = focusedField === field.name;
-                  const hasValue = formData[field.name] !== "";
-                  
+                  const hasValue =
+                    formData[field.name as keyof typeof formData] !== "";
+
                   return (
                     <motion.div
                       key={field.name}
@@ -139,15 +172,27 @@ export default function Modal({ isOpen, setIsOpen, modalSize = "lg" }: ModalProp
                       transition={{ delay: 0.1 + index * 0.05 }}
                       className="relative group"
                     >
-                      <div className={cn(
-                        "relative flex items-center rounded-xl border transition-all duration-300",
-                        isFocused ? "border-blue-400 bg-slate-800/80 shadow-lg shadow-blue-500/20" : "border-slate-600 bg-slate-800/50",
-                        hasValue && !isFocused ? "border-slate-500 bg-slate-800/70" : ""
-                      )}>
-                        <div className={cn(
-                          "absolute left-4 transition-colors duration-300",
-                          isFocused ? "text-blue-400" : hasValue ? "text-slate-300" : "text-slate-500"
-                        )}>
+                      <div
+                        className={cn(
+                          "relative flex items-center rounded-xl border transition-all duration-300",
+                          isFocused
+                            ? "border-blue-400 bg-slate-800/80 shadow-lg shadow-blue-500/20"
+                            : "border-slate-600 bg-slate-800/50",
+                          hasValue && !isFocused
+                            ? "border-slate-500 bg-slate-800/70"
+                            : ""
+                        )}
+                      >
+                        <div
+                          className={cn(
+                            "absolute left-4 transition-colors duration-300",
+                            isFocused
+                              ? "text-blue-400"
+                              : hasValue
+                              ? "text-slate-300"
+                              : "text-slate-500"
+                          )}
+                        >
                           <Icon size={18} />
                         </div>
                         <input
@@ -155,7 +200,7 @@ export default function Modal({ isOpen, setIsOpen, modalSize = "lg" }: ModalProp
                           type={field.type}
                           placeholder={field.placeholder}
                           className="w-full bg-transparent pl-12 pr-4 py-4 text-white placeholder-slate-400 focus:outline-none focus:placeholder-slate-500"
-                          value={formData[field.name]}
+                          value={formData[field.name as keyof typeof formData]}
                           onChange={handleChange}
                           onFocus={() => setFocusedField(field.name)}
                           onBlur={() => setFocusedField("")}
@@ -165,7 +210,11 @@ export default function Modal({ isOpen, setIsOpen, modalSize = "lg" }: ModalProp
                           <motion.div
                             layoutId="inputGlow"
                             className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/20 to-purple-500/20 -z-10"
-                            transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                            transition={{
+                              type: "spring",
+                              stiffness: 400,
+                              damping: 30,
+                            }}
                           />
                         )}
                       </div>
@@ -175,7 +224,7 @@ export default function Modal({ isOpen, setIsOpen, modalSize = "lg" }: ModalProp
               </div>
 
               {/* Action Buttons */}
-              <motion.div 
+              <motion.div
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.4 }}
@@ -194,7 +243,8 @@ export default function Modal({ isOpen, setIsOpen, modalSize = "lg" }: ModalProp
                   whileHover={{ scale: 1.02, y: -1 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={handleSubmit}
-                  className="flex-1 py-3 px-6 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-200">
+                  className="flex-1 py-3 px-6 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 transition-all duration-200"
+                >
                   <span className="relative z-10">Register Now</span>
                 </motion.button>
               </motion.div>
