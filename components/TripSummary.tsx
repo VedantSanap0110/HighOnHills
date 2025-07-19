@@ -41,6 +41,8 @@ const items = [
       <Image
         src="/images/day5.jpg"
         alt="Shimla"
+        width={800}
+        height={320}
         className="w-full h-40 object-cover rounded-lg"
       />
     ),
@@ -54,6 +56,8 @@ const items = [
       <Image
         src="/images/day3.1.jpg"
         alt="Shimla"
+        width={800}
+        height={320}
         className="w-full h-40 object-cover rounded-lg"
       />
     ),
@@ -68,6 +72,8 @@ const items = [
       <Image
         src="/images/hotel.jpg"
         alt="Hotel"
+        width={800}
+        height={320}
         className="w-full h-40 object-cover rounded-lg"
       />
     ),
@@ -83,6 +89,8 @@ const items = [
       <Image
         src="/images/dj.jpg"
         alt="Shimla"
+        width={800}
+        height={320}
         className="w-full h-40 object-cover rounded-lg"
       />
     ),
@@ -98,6 +106,8 @@ const items = [
       <Image
         src="/images/day1.jpg"
         alt="Shimla"
+        width={800}
+        height={320}
         className="w-full h-40 object-cover rounded-lg"
       />
     ),
