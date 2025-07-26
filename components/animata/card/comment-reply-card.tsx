@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion,easeInOut } from "framer-motion";
+import React, { useEffect, useRef } from "react";
+import { AnimatePresence, motion, easeInOut } from "framer-motion";
 import { Check, X } from "lucide-react";
 
 interface Comment {
@@ -31,34 +31,8 @@ export default function CommentReplyCard({
 }: {
   initialComments: Comment[];
 }) {
-  const [comments, setComments] = useState<Comment[]>([...initialComments]);
-  const [newComment, setNewComment] = useState<string>("");
-  const [isAnimating, setIsAnimating] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const handleAddComment = () => {
-    if (newComment.trim() === "") return;
-    setIsAnimating(true);
-    const newCommentData: Comment = {
-      id: comments.length + 1,
-      user: "Emily",
-      text: [newComment],
-      time: "now",
-      avatarColor: "#e84b9d",
-    };
-
-    setTimeout(() => {
-      setComments((prevComments) => [...prevComments, newCommentData]);
-      setNewComment("");
-      setTimeout(() => {
-        setIsAnimating(false);
-        if (inputRef.current) {
-          inputRef.current.focus();
-        }
-      }, 300);
-    }, 300);
-  };
+    const comments = [...initialComments];
+    const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (containerRef.current) {
@@ -158,55 +132,6 @@ export default function CommentReplyCard({
           </motion.div>
         </motion.div>
       </div>
-
-      {/* Input Box */}
-      <AnimatePresence>
-        {!isAnimating && (
-          <motion.div
-            className="absolute bottom-[-10] left-0 right-0 mx-auto mt-8 w-full max-w-[470px] rounded-lg p-2"
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -60 }}
-            transition={{ duration: 0.3 }}
-          >
-            <div className="relative flex items-center rounded-3xl bg-[#3d3d40] p-1">
-              <div className="mr-3 h-8 w-8 overflow-hidden rounded-full bg-[#e84b9d]">
-                <svg
-                  className="h-full w-full text-white opacity-70"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                    clipRule="evenodd"
-                  ></path>
-                </svg>
-              </div>
-              <input
-                ref={inputRef}
-                type="text"
-                className="flex-grow bg-transparent text-white placeholder-gray-400 focus:outline-none"
-                placeholder="Reply"
-                value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
-                onKeyPress={(e) => {
-                  if (e.key === "Enter") {
-                    handleAddComment();
-                  }
-                }}
-              />
-              <button
-                onClick={handleAddComment}
-                className="ml-2 rounded-3xl bg-yellow-400 px-4 py-1 font-semibold text-black transition hover:bg-yellow-500"
-              >
-                Send
-              </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </div>
   );
 }

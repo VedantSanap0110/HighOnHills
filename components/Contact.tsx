@@ -14,9 +14,10 @@ function Contact() {
             id: 1,
             text: [
               "📞 For any inquiries feel free to contact the organizing committee:",
-              "• Vedant Sanap: 87797 84305",
-              "• Sagar Panighray: 79726 16262",
-              "• Sarthak Harade: 79726 16262",
+              "• Vedant Sanap: +91 87797 84305",
+              "• Sagar Panighray: +91 72197 93279",
+              "• Sarthak Harade: +91 98923 11118",
+              "• Adinath Patil: +91 99307 11515",
             ],
             time: "Last updated 13 hours ago",
             user: "Organizing Team",
