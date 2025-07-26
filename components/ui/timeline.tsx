@@ -33,12 +33,12 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
       className="w-full bg-white dark:bg-neutral-950 font-sans md:px-10"
       ref={containerRef}
     >
-      <div className="max-w-7xl mx-auto py-20 px-4 md:px-8 lg:px-10 text-center">
+      <div className="max-w-7xl mx-auto py-10 px-4 md:py-20 md:px-8 lg:px-10 text-center">
         <GibberishText
-          className="text-6xl font-black"
+          className="text-4xl md:text-6xl font-black"
           text="Himachal Pradesh"
         />
-        <p className="text-neutral-700 dark:text-neutral-300 text-sm md:text-base max-w-xl mx-auto">
+        <p className="text-neutral-700 dark:text-neutral-300 text-sm md:text-base max-w-sm mx-auto md:max-w-xl">
           Join us on an unforgettable trip to Himachal Pradesh, with experienced
           guides and a well-planned itinerary.
         </p>

@@ -38,7 +38,7 @@ export function NavbarDemo() {
           <NavbarLogo />
           <NavItems items={navItems} />
           <div className="flex items-center gap-4">
-            <NavbarButton variant="primary">Book your seat</NavbarButton>
+            <NavbarButton onClick={() => window.open("https://forms.gle/1ZNffFGjvHYVxnej8", "_blank")} variant="primary">Book your seat</NavbarButton>
           </div>
         </NavBody>
 
@@ -72,7 +72,7 @@ export function NavbarDemo() {
                 variant="primary"
                 className="w-full"
               >
-                Book your Seat
+                <a href="https://forms.gle/1ZNffFGjvHYVxnej8">Book your Seat</a>
               </NavbarButton>
             </div>
           </MobileNavMenu>
