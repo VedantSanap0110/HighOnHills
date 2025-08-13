@@ -242,7 +242,7 @@ export const NavbarLogo = () => {
         height={30}
       />
       <span className="font-medium text-black dark:text-white">
-        High On Hills
+        Himsafar
       </span>
     </a>
   );

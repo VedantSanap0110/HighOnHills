@@ -74,7 +74,7 @@ const Footer: React.FC = () => {
           ))}
         </div>
         <p className="mt-6 text-center text-sm text-gray-600 dark:text-gray-100">
-          &copy; {new Date().getFullYear()} High On Hills. All rights reserved.
+          &copy; {new Date().getFullYear()} Himsafar. All rights reserved.
         </p>
       </div>
     </footer>
